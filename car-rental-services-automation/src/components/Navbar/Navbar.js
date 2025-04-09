@@ -15,8 +15,8 @@ const Navbar = () => {
         <li className="navbar-item">
           <Link to="/contact" className="navbar-link">Contact</Link>
               </li>
-              <li className="AddCarForm">
-                  <Link to="/manage-vehicles" className="navbar-link">Add New Vehicle</Link>              </li>
+              <li className="navbar-item">
+                  <Link to="/manage-vehicles" className="navbar-link">Manage Vehicles</Link>              </li>
       </ul>
     </nav>
   );

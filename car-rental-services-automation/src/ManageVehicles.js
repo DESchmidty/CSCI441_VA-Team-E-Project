@@ -11,7 +11,9 @@ const ManageVehicles = () => {
 
 
     const fetchCars = async () => {
-        const response = await fetch('http://localhost:5000/api/cars');
+          const response = await fetch('http://localhost:3000/api/cars');
+    //    const response = await fetch(`${process.env.REACT_APP_API_URL}/cars`);  
+
         const data = await response.json();
         setCars(data);
     };
@@ -23,7 +25,9 @@ const ManageVehicles = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const response = await fetch('http://localhost:5000/api/cars', {
+         const response = await fetch('http://localhost:3000/api/cars',
+       // const response = await fetch(`${process.env.REACT_APP_API_URL}/cars`,
+           {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -52,7 +56,7 @@ const ManageVehicles = () => {
             return;
         }
 
-        const response = await fetch(`http://localhost:5000/api/cars/${selectedCar}`, {
+        const response = await fetch(`http://localhost:3000/api/cars/${selectedCar}`, {
             method: 'DELETE',
         });
 

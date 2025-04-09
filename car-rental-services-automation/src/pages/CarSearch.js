@@ -5,7 +5,7 @@ const CarSearch = () => {
 
     useEffect(() => {
         const fetchCars = async () => {
-            const response = await fetch('http://localhost:5000/api/cars');
+            const response = await fetch('http://localhost:3000/api/cars');
             const data = await response.json();
             setCars(data);
         };

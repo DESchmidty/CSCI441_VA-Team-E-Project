@@ -7,6 +7,33 @@ require("dotenv").config();
 const app = express();
 app.use(express.json());
 
+
+//  const { exec } = require("child_process"); 
+  //  const path = require("path"); path for function below
+
+// Function to export MongoDB collection in strict mode - does not solve issue
+/* function exportMongoCollection() {
+    const outputFilePath = path.join(__dirname, "exported_data.json");
+    const command = `mongoexport --uri="${process.env.MONGO_URI}" --collection=cars --out=${outputFilePath} --jsonArray --strict`;
+
+    exec(command, (error, stdout, stderr) => {
+        if (error) {
+            console.error(`Error exporting collection: ${error.message}`);
+            return;
+        }
+        if (stderr) {
+            console.error(`stderr: ${stderr}`);
+            return;
+        }
+        console.log(`Collection exported successfully to ${outputFilePath}`);
+    });
+}   */
+
+// Call the export function
+//  exportMongoCollection();
+
+
+
 // added in cors configuration because i was having database issues, not sure if its even necessary now, can probably remove
 const corsOptions = {
     origin: 'http://localhost:3000', 
@@ -36,6 +63,6 @@ const carRoutes = require("./cars");
 app.use("/api", carRoutes); 
 
 // Start Server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 

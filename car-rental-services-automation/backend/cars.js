@@ -29,7 +29,8 @@ router.post("/cars", async (req, res) => {
 // Get all cars
 router.get("/cars", async (req, res) => {
     try {
-        const cars = await Car.find();
+        const cars = await Car.find();   //.lean();   //added lean, found in a thread that suggested it may work
+   //     console.log(cars); // added logging to show results
         res.json(cars);
     } catch (err) {
         res.status(500).json({ message: err.message });
