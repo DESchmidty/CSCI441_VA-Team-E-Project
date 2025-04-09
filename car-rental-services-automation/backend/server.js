@@ -7,8 +7,12 @@ require("dotenv").config();
 const app = express();
 app.use(express.json());
 
+// serve index file -- this is the latest code for the server file.
+const path = require("path");
 
-//  const { exec } = require("child_process"); 
+app.use(express.static(path.join(__dirname, "../build")));
+
+//  const { exec } = require("child_process");
   //  const path = require("path"); path for function below
 
 // Function to export MongoDB collection in strict mode - does not solve issue
@@ -31,6 +35,9 @@ app.use(express.json());
 
 // Call the export function
 //  exportMongoCollection();
+
+
+
 
 
 
@@ -60,7 +67,14 @@ mongoose.connect(process.env.MONGO_URI, {
 
 // Import car routes
 const carRoutes = require("./cars");
-app.use("/api", carRoutes); 
+app.use("/api", carRoutes);  
+
+
+// Catch-all route for React 
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../build", "index.html"));
+});
+
 
 // Start Server
 const PORT = process.env.PORT || 3000;
