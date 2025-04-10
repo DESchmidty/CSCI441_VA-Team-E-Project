@@ -1,147 +1,119 @@
 import React, { useState, useEffect } from 'react';
+import { Form, Button, Container, Row, Col, Card } from 'react-bootstrap';
 
 const ManageVehicles = () => {
-    const [make, setMake] = useState('');
-    const [model, setModel] = useState('');
-    const [year, setYear] = useState('');
-    const [pricePerDay, setPricePerDay] = useState('');
-    const [availability, setAvailability] = useState(true);
-    const [cars, setCars] = useState([]);
-    const [selectedCar, setSelectedCar] = useState('');
+  const [make, setMake] = useState('');
+  const [model, setModel] = useState('');
+  const [year, setYear] = useState('');
+  const [pricePerDay, setPricePerDay] = useState('');
+  const [availability, setAvailability] = useState(true);
+  const [cars, setCars] = useState([]);
+  const [selectedCar, setSelectedCar] = useState('');
 
+  const fetchCars = async () => {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/cars`);
+    const data = await response.json();
+    setCars(data);
+  };
 
-    const fetchCars = async () => {
-          const response = await fetch('http://localhost:3000/api/cars');
-    //    const response = await fetch(`${process.env.REACT_APP_API_URL}/cars`);  
+  useEffect(() => {
+    fetchCars();
+  }, []);
 
-        const data = await response.json();
-        setCars(data);
-    };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/cars`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ make, model, year, pricePerDay, availability }),
+    });
 
-    useEffect(() => {
-        fetchCars();
-    }, []);
+    if (response.ok) {
+      alert('Car added successfully!');
+      setMake('');
+      setModel('');
+      setYear('');
+      setPricePerDay('');
+      setAvailability(true);
+      fetchCars();
+    } else {
+      const errorText = await response.text();
+      alert(`Failed to add car: ${errorText}`);
+    }
+  };
 
+  const handleDelete = async () => {
+    if (!selectedCar) return alert('Please select a car to delete');
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-         const response = await fetch('http://localhost:3000/api/cars',
-       // const response = await fetch(`${process.env.REACT_APP_API_URL}/cars`,
-           {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ make, model, year, pricePerDay, availability }),
-        });
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/cars/${selectedCar}`, {
+      method: 'DELETE',
+    });
 
-        if (response.ok) {
-            alert('Car added successfully!');
-            setMake('');
-            setModel('');
-            setYear('');
-            setPricePerDay('');
-            setAvailability(true);
-            fetchCars();
-        } else {
-            const errorText = await response.text();
-            console.error('Failed to add car:', errorText);
-            alert(`Failed to add car: ${errorText}`);
-        }
-    };
+    if (response.ok) {
+      alert('Car deleted successfully!');
+      setSelectedCar('');
+      fetchCars();
+    } else {
+      const errorText = await response.text();
+      alert(`Failed to delete car: ${errorText}`);
+    }
+  };
 
-    const handleDelete = async () => {
-        if (!selectedCar) {
-            alert('Please select a car to delete');
-            return;
-        }
+  return (
+    <Container>
+      <h1 className="my-4">Manage Vehicles</h1>
+      <Row>
+        <Col md={6}>
+          <Card className="p-3 mb-4">
+            <Card.Title>Add a Vehicle</Card.Title>
+            <Form onSubmit={handleSubmit}>
+              <Form.Group className="mb-3">
+                <Form.Label>Make</Form.Label>
+                <Form.Control type="text" value={make} onChange={(e) => setMake(e.target.value)} required />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Model</Form.Label>
+                <Form.Control type="text" value={model} onChange={(e) => setModel(e.target.value)} required />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Year</Form.Label>
+                <Form.Control type="number" value={year} onChange={(e) => setYear(e.target.value)} required />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Price Per Day</Form.Label>
+                <Form.Control type="number" value={pricePerDay} onChange={(e) => setPricePerDay(e.target.value)} required />
+              </Form.Group>
+              <Form.Check 
+                type="checkbox"
+                label="Available"
+                checked={availability}
+                onChange={(e) => setAvailability(e.target.checked)}
+              />
+              <Button className="mt-3" variant="primary" type="submit">Add Car</Button>
+            </Form>
+          </Card>
+        </Col>
 
-        const response = await fetch(`http://localhost:3000/api/cars/${selectedCar}`, {
-            method: 'DELETE',
-        });
-
-        if (response.ok) {
-            alert('Car deleted successfully!');
-            setSelectedCar('');
-            fetchCars(); 
-        } else {
-            const errorText = await response.text();
-            console.error('Failed to delete car:', errorText);
-            alert(`Failed to delete car: ${errorText}`);
-        }
-    };
-
-    return (
-        <div>
-            <h1>Manage Vehicles</h1>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Make:
-                    <input
-                        type="text"
-                        value={make}
-                        onChange={(e) => setMake(e.target.value)}
-                        required
-                    />
-                </label>
-                <br />
-                <label>
-                    Model:
-                    <input
-                        type="text"
-                        value={model}
-                        onChange={(e) => setModel(e.target.value)}
-                        required
-                    />
-                </label>
-                <br />
-                <label>
-                    Year:
-                    <input
-                        type="number"
-                        value={year}
-                        onChange={(e) => setYear(e.target.value)}
-                        required
-                    />
-                </label>
-                <br />
-                <label>
-                    Price Per Day:
-                    <input
-                        type="number"
-                        value={pricePerDay}
-                        onChange={(e) => setPricePerDay(e.target.value)}
-                        required
-                    />
-                </label>
-                <br />
-                <label>
-                    Availability:
-                    <input
-                        type="checkbox"
-                        checked={availability}
-                        onChange={(e) => setAvailability(e.target.checked)}
-                    />
-                </label>
-                <br />
-                <button type="submit">Add Car</button>
-            </form>
-            <h2>Delete a Vehicle</h2>
-            <label>
-                Select Car:
-                <select value={selectedCar} onChange={(e) => setSelectedCar(e.target.value)}>
-                    <option value="">--Select a car--</option>
-                    {cars.map((car) => (
-                        <option key={car._id} value={car._id}>
-                            {car.make} {car.model} ({car.year})
-                        </option>
-                    ))}
-                </select>
-            </label>
-            <br />
-            <button onClick={handleDelete}>Delete Car</button>
-        </div>
-    );
+        <Col md={6}>
+          <Card className="p-3 mb-4">
+            <Card.Title>Delete a Vehicle</Card.Title>
+            <Form.Group className="mb-3">
+              <Form.Label>Select Car</Form.Label>
+              <Form.Select value={selectedCar} onChange={(e) => setSelectedCar(e.target.value)}>
+                <option value="">--Select a car--</option>
+                {cars.map((car) => (
+                  <option key={car._id} value={car._id}>
+                    {car.make} {car.model} ({car.year})
+                  </option>
+                ))}
+              </Form.Select>
+            </Form.Group>
+            <Button variant="danger" onClick={handleDelete}>Delete Car</Button>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
+  );
 };
 
 export default ManageVehicles;

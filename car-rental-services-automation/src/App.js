@@ -5,23 +5,23 @@ import CarSearch from './pages/CarSearch';
 import Contact from './pages/Contact';
 import Navbar from './components/Navbar/Navbar';
 import './App.css';
-import ManageVehicles from './ManageVehicles'; // working on adding new route for car edit
+import ManageVehicles from './ManageVehicles';
 
 function App() {
     return (
-        <div className="App">
-            <Router>
+        <Router>
+            <div className="d-flex">
                 <Navbar />
-                <div className="App-content">
+                <div className="App-content" style={{ marginLeft: '220px', padding: '20px', width: '100%' }}>
                     <Routes>
                         <Route path="/" element={<HomePage />} />
                         <Route path="/car-search" element={<CarSearch />} />
                         <Route path="/contact" element={<Contact />} />
-                        <Route path="/manage-vehicles" element={<ManageVehicles />} /> {/* added new route for car edit */}
+                        <Route path="/manage-vehicles" element={<ManageVehicles />} />
                     </Routes>
                 </div>
-            </Router>
-        </div>
+            </div>
+        </Router>
     );
 }
 

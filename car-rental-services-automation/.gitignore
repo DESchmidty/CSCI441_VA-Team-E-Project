@@ -1,5 +1,5 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-car-rental-services-automation\backend\.env
+#car-rental-services-automation\backend\.env
 # dependencies
 /node_modules
 /.pnp
