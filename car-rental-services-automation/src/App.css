@@ -1,15 +1,13 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #808080;
+  background-color: #f0f4f8; 
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  font-family: Arial, sans-serif;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
 }
-
-
 
 .App {
   text-align: center;
@@ -27,18 +25,23 @@ body {
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #4f46e5;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #ffffff; 
 }
 
 .App-link {
-  color: #61dafb;
+  color: #a5f3fc; 
+  text-decoration: none;
+}
+
+.App-link:hover {
+  color: #67e8f9; 
 }
 
 @keyframes App-logo-spin {

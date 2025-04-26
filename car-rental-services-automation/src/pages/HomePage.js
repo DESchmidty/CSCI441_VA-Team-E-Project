@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Button, Container, Row, Col, Form } from 'react-bootstrap';
+import './HomePage.css';
 
 const HomePage = () => {
   return (

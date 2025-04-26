@@ -1,0 +1,75 @@
+
+h1 {
+    text-align: center;
+    color: #4f46e5;
+    margin-bottom: 2rem;
+    font-weight: 800;
+    font-size: 2.8rem;
+    letter-spacing: 1px; 
+    font-family: 'Poppins', 'Helvetica Neue', Arial, sans-serif;
+  }
+  
+  
+  form {
+    max-width: 400px;
+    margin: 0 auto 2rem auto;
+  }
+  
+  form label {
+    font-weight: 600;
+    color: #333;
+  }
+  
+  form select {
+    border-radius: 8px;
+    padding: 0.5rem;
+  }
+  
+  .card {
+    animation: floatIn 0.8s ease forwards;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(79, 70, 229, 0.2); 
+  }
+  
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #222;
+  }
+  
+  .card-subtitle {
+    font-size: 1rem;
+    color: #6c757d;
+  }
+  
+  .card-text {
+    font-size: 0.95rem;
+    color: #555;
+  }
+  
+  button.btn-primary {
+    background-color: #4f46e5;
+    border-color: #4f46e5;
+    border-radius: 8px;
+  }
+  
+  button.btn-primary:hover {
+    background-color: #4338ca;
+    border-color: #4338ca;
+  }
+  
+  @keyframes floatIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
