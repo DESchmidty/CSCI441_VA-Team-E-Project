@@ -65,10 +65,14 @@ mongoose.connect(process.env.MONGO_URI, {
     .then(() => console.log("MongoDB connected"))
     .catch(err => console.log("MongoDB connection error:", err));
 
-// Import car routes
-const carRoutes = require("./cars");
-app.use("/api", carRoutes);  
+//new import for customer routes - was not working initially until i put the .use customers above cars, so this arrangement works
+const carRoutes = require("./cars").router;
+const customerRoutes = require("./customers");
+app.use("/api/customers", customerRoutes);
+app.use("/api/cars", carRoutes);
 
+
+  
 
 // Catch-all route for React 
 app.get("*", (req, res) => {

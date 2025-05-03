@@ -14,7 +14,7 @@ const CarSchema = new mongoose.Schema({
 const Car = mongoose.model("Car", CarSchema);
 
 // Add a new car
-router.post("/cars", async (req, res) => {
+router.post("/", async (req, res) => {
     try {
         const { make, model, year, pricePerDay, availability } = req.body;
         const newCar = new Car({ make, model, year, pricePerDay, availability });
@@ -27,7 +27,7 @@ router.post("/cars", async (req, res) => {
 });
 
 // Get all cars
-router.get("/cars", async (req, res) => {
+router.get("/", async (req, res) => {
     try {
         const cars = await Car.find();   //.lean();   //added lean, found in a thread that suggested it may work
    //     console.log(cars); // added logging to show results
@@ -37,8 +37,8 @@ router.get("/cars", async (req, res) => {
     }
 });
 
-// Delete a car - eventually
-router.delete("/cars/:id", async (req, res) => {
+// Delete a car - Done
+router.delete("/:id", async (req, res) => {
     try {
         const { id } = req.params;
         await Car.findByIdAndDelete(id);
@@ -49,4 +49,29 @@ router.delete("/cars/:id", async (req, res) => {
     }
 });
 
-module.exports = router;
+
+// Update car availability - Also Done
+router.put("/:id/availability", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { availability } = req.body; 
+        const updatedCar = await Car.findByIdAndUpdate(
+            id,
+            { availability },
+            { new: true } 
+        );
+        if (!updatedCar) {
+            return res.status(404).json({ message: "Car not found" });
+        }
+        res.status(200).json(updatedCar);
+    } catch (err) {
+        console.error("Error updating car availability:", err);
+        res.status(500).json({ message: err.message });
+    }
+});
+
+
+module.exports = {
+    Car,
+    router,
+};

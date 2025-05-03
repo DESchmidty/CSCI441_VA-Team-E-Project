@@ -6,6 +6,9 @@ import Contact from './pages/Contact';
 import Navbar from './components/Navbar/Navbar';
 import './App.css';
 import ManageVehicles from './ManageVehicles'; // working on adding new route for car edit
+import CustomerInformation from './pages/CustomerInformation'; //added new import for customer info
+import ManageCustomers from './pages/ManageCustomers'; //another new route for manage customers page
+
 
 function App() {
     return (
@@ -18,6 +21,9 @@ function App() {
                         <Route path="/car-search" element={<CarSearch />} />
                         <Route path="/contact" element={<Contact />} />
                         <Route path="/manage-vehicles" element={<ManageVehicles />} /> {/* added new route for car edit */}
+                        <Route path="/book/:carId" element={<CustomerInformation />} /> {/* added new route for customer information */}
+                        <Route path="/manage-customers" element={<ManageCustomers />} /> {/* added new route for viewing or deleting customers */}
+                        <Route path="/book/:carId" element={<CustomerInformation />} /> {/* added new route on homepage to go to customer booking page */}
                     </Routes>
                 </div>
             </Router>
