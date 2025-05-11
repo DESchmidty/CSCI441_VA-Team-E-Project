@@ -1,11 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Container, Row, Col, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { useLanguage } from '../context/LanguageContext';
 
 const CarSearch = () => {
     const [cars, setCars] = useState([]);
     const [search, setSearch] = useState('');
     const navigate = useNavigate();
+    const { language } = useLanguage();
+
+    const translations = {
+        en: {
+            search: 'Search for Cars',
+        },
+        de: {
+            search: 'Autos suchen',
+        },
+    };
+
+    const t = translations[language];
 
     useEffect(() => {
         fetch('http://localhost:3000/api/cars')
@@ -24,7 +37,7 @@ const CarSearch = () => {
 
     return (
         <Container>
-            <h1 className="my-4">Search Cars</h1>
+            <h1 className="my-4">{t.search}</h1>
             <input
                 value={search}
                 onChange={e => setSearch(e.target.value)}
@@ -48,7 +61,7 @@ const CarSearch = () => {
                                     </Card.Text>
                                     <Button
                                         variant="primary"
-                                        onClick={() => handleBookClick(car._id)} // code to disable button if not available
+                                        onClick={() => handleBookClick(car._id)} 
                                         disabled={!car.availability}
                                     >
                                         Click to book

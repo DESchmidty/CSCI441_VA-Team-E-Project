@@ -1,9 +1,22 @@
 // JavaScript source code
 
 import React, { useEffect, useState } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 const ManageCustomers = () => {
     const [customers, setCustomers] = useState([]);
+    const { language } = useLanguage();
+
+    const translations = {
+        en: {
+            manage: 'Manage Customers',
+        },
+        de: {
+            manage: 'Kunden verwalten',
+        },
+    };
+
+    const t = translations[language];
 
     // code to fetch customers from the database
     const fetchCustomers = async () => {
@@ -41,7 +54,7 @@ const ManageCustomers = () => {
     //graphics for customers page - doesn't match the rest of the site yet
     return (
         <div>
-            <h1>Customer List</h1>
+            <h1>{t.manage}</h1>
             <table>
                 <thead>
                     <tr>

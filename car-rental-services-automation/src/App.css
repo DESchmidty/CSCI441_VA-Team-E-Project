@@ -9,6 +9,11 @@ body {
   font-family: 'Helvetica Neue', Arial, sans-serif;
 }
 
+body.dark-mode {
+  background-color: #121212;
+  color: white;
+}
+
 .App {
   text-align: center;
 }
@@ -42,6 +47,19 @@ body {
 
 .App-link:hover {
   color: #67e8f9; 
+}
+
+.dark-mode-button {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.dark-mode-button:hover {
+  background-color: #555;
 }
 
 @keyframes App-logo-spin {

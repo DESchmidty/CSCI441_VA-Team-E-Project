@@ -1,33 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react'; 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { LanguageProvider } from './context/LanguageContext';
 import HomePage from './pages/HomePage';
 import CarSearch from './pages/CarSearch';
 import Contact from './pages/Contact';
 import Navbar from './components/Navbar/Navbar';
 import './App.css';
-import ManageVehicles from './ManageVehicles'; // working on adding new route for car edit
-import CustomerInformation from './pages/CustomerInformation'; //added new import for customer info
-import ManageCustomers from './pages/ManageCustomers'; //another new route for manage customers page
-
+import ManageVehicles from './pages/ManageVehicles';
+import CustomerInformation from './pages/CustomerInformation';
+import ManageCustomers from './pages/ManageCustomers';
 
 function App() {
+    const [darkMode, setDarkMode] = useState(false); 
+
+    const toggleDarkMode = () => {
+        setDarkMode(!darkMode);
+        document.body.className = darkMode ? '' : 'dark-mode'; 
+    };
+
     return (
-        <div className="App">
-            <Router>
-                <Navbar />
-                <div className="App-content">
-                    <Routes>
-                        <Route path="/" element={<HomePage />} />
-                        <Route path="/car-search" element={<CarSearch />} />
-                        <Route path="/contact" element={<Contact />} />
-                        <Route path="/manage-vehicles" element={<ManageVehicles />} /> {/* added new route for car edit */}
-                        <Route path="/book/:carId" element={<CustomerInformation />} /> {/* added new route for customer information */}
-                        <Route path="/manage-customers" element={<ManageCustomers />} /> {/* added new route for viewing or deleting customers */}
-                        <Route path="/book/:carId" element={<CustomerInformation />} /> {/* added new route on homepage to go to customer booking page */}
-                    </Routes>
-                </div>
-            </Router>
-        </div>
+        <LanguageProvider>
+            <div className="App">
+                <Router>
+                    <Navbar toggleDarkMode={toggleDarkMode} />
+                    <div className="App-content">
+                        <Routes>
+                            <Route path="/" element={<HomePage />} />
+                            <Route path="/car-search" element={<CarSearch />} />
+                            <Route path="/contact" element={<Contact />} />
+                            <Route path="/manage-vehicles" element={<ManageVehicles />} />
+                            <Route path="/book/:carId" element={<CustomerInformation />} />
+                            <Route path="/manage-customers" element={<ManageCustomers />} />
+                        </Routes>
+                    </div>
+                </Router>
+            </div>
+        </LanguageProvider>
     );
 }
 

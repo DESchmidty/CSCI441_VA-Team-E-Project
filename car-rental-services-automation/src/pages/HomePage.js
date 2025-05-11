@@ -1,11 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Button, Container, Row, Col, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom'; //added a navigate import to make the buttons actually go somewhere
+import { useLanguage } from '../context/LanguageContext';
 import './HomePage.css';
 
 const HomePage = () => {
     const [cars, setCars] = useState([]);
     const navigate = useNavigate(); // same here, initializes the navigate
+    const { language } = useLanguage();
+
+    const translations = {
+        en: {
+            welcome: 'Welcome to Car Rental Services!',
+        },
+        de: {
+            welcome: 'Willkommen bei der Autovermietung!',
+        },
+    };
+
+    const t = translations[language];
+
     useEffect(() => {
         const fetchCars = async () => {
             try {
@@ -31,7 +45,7 @@ const HomePage = () => {
 
     return (
         <Container>
-            <h1 className="my-4">DriveNow - Welcome</h1>
+            <h1 className="my-4">{t.welcome}</h1>
             <Form>
                 <Form.Group controlId="categoryFilter">
                     <Form.Label>Filter by Category</Form.Label>

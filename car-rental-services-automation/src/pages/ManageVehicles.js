@@ -1,15 +1,15 @@
 import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 
-const Contact = () => {
+const ManageVehicles = () => {
     const { language } = useLanguage();
 
     const translations = {
         en: {
-            contactUs: 'Contact Us',
+            manage: 'Manage Vehicles',
         },
         de: {
-            contactUs: 'Kontaktieren Sie uns',
+            manage: 'Fahrzeuge verwalten',
         },
     };
 
@@ -17,9 +17,9 @@ const Contact = () => {
 
     return (
         <div>
-            <h1>{t.contactUs}</h1>
+            <h1>{t.manage}</h1>
         </div>
     );
 };
 
-export default Contact;
+export default ManageVehicles;
